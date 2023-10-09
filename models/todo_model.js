@@ -17,7 +17,7 @@ const TodoSchema = new Schema({
     },
     category:{
         type: String,
-        enum:['work','personal','spiritual','financial','lifestyle','school','career']
+        enum:['work','personal','spiritual','financial','lifestyle','school','career','business']
     }
 })
 
