@@ -5,10 +5,10 @@ const moment = require('moment');
 
 const todoRouter =express.Router()
 
-function shortDescription(content){
+function shortDescriptions(content){
 
     // take the content and split it into sentences using split and regex
-    const sentences = content.split(/[.?!]/)
+    const sentences = content.split(/[.,?!]/)
 
     // check if each sentence is empty and trim each sentence
     const validSentence = sentences.filter(sentence => sentence.trim() !== '')
@@ -34,7 +34,7 @@ todoRouter.post('/new', async(req, res)=>{
 
     const todo = await todoModel.create({
         title: body.title,
-        shortDescription: shortDescription(content),
+        shortDescription: shortDescriptions(content),
         content: body.content,
         created_at: moment().toDate(),
         category: body.category
@@ -69,37 +69,93 @@ todoRouter.get('/:id', async(req, res)=>{
 
 
 // update todo by id
-// todoRouter.patch('/update/:id', async(req, res)=>{
-//     const {id} = req.params.id
-//     const {title, shortDescription, content, category} = req.body
+todoRouter.patch('/update/:id', async(req, res)=>{
+    const {id} = req.params
+    const updatedData = req.body
 
-//     shortDescription = await shortDescription(content)
+    // check if id is correct, then if currentTodo model is correct , then check if update made is empty
 
-//     const updateTodo = await todoModel.findByIdAndUpdate(id, [
-//         {"title": title}, {"shortDescription": shortDescription }, {"content": content}, {"category": category}
-//     ], function(err, res){
-//         if(err){
-//            return res.send(err)
-//         }
-//         else{
-//            return res.send(res)
-//         }
-//     })
+    try{
+
+        if(!id){
+            return res.status(404).json({
+                status: false,
+                message: err,
+                error: `Incorrect ID: ${id}`
+            })
+        }
+        const currentTodo = await todoModel.findById(id)
+
+        if(!currentTodo){
+            return res.status(404).json({
+                status: false,
+                message: "Todo not found!"
+            })
+        }
 
 
-    // updateTodo.title = title
-    // updateTodo.content = content
-    // shortDescription = shortDescription(updateTodo.content)
-    // updateTodo.category = category
+        if(Object.keys(updatedData).length === 0){
+            return res.status(403).json({
+                status: false,
+                message: currentTodo,
+                info:'No update made!!'
 
-    // await updateTodo.save()
+            })
+        }
 
-    // return res.status(200).json({
-    //     status: true,
-    //     message: updateTodo
-    // })
-    // })
+        const updatedTodo = await todoModel.findByIdAndUpdate(id, {$set: updatedData}, {new: true})
 
+        const content = updatedTodo.content
+
+        const calculatedShortDescription = await shortDescriptions(content)
+
+        updatedTodo.shortDescription = calculatedShortDescription
+
+        await updatedTodo.save()
+
+        return res.status(200).json({
+            status: true,
+            message: updatedTodo
+        })
+    }
+    catch (err){
+        console.error(`Error log: ${err}`)
+        return res.status(500).json({
+            status: false,
+            message: `${err}`,
+            info: "Internal Server Error"
+        })
+    }
+})
+
+
+// delete todo by ID
+todoRouter.delete('/del/:id', async (req, res)=>{
+    const id = req.params.id
+
+    const deletedTodo = await todoModel.findByIdAndDelete(id)
+
+    try{
+        if (!id){
+            return res.status(404).json({
+                status: false,
+                message: 'Incorrect ID'
+            })
+        }
+        return res.status(200).json({
+            status: true,
+            message: deletedTodo
+        })
+    }
+    catch(error){
+        console.error(`${error}`)
+        return res.status(500).json({
+            status: false,
+            message: error
+        })
+    }
+
+    })
 
 
 
