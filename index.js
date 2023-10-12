@@ -2,13 +2,18 @@ const express = require('express')
 const mongoose = require('mongoose')
 const todoModel = require('./models/todo_model')
 const todoRouter = require('./routes/todoroute')
+const bodyParser = require('body-parser')
+const CONFIG = require('./config/config')
+const ConnectToDb = require('./db/mongoDb')
 
-// define port
-const PORT = 3000
 
 const app = express()
 
-app.use(express.json())
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+
+// connect to mongoDb
+ConnectToDb()
 
 app.use('/todos', todoRouter)
 
@@ -23,18 +28,7 @@ app.get('/', async(req, res)=>{
 })
 
 
-// create a mongoose connection
-mongoose.connect("mongodb+srv://alexander:Lalacious234@cluster0.ln9yann.mongodb.net/")
-
-mongoose.connection.on("connected", ()=>{
-    console.log("Connected to MongoDB successfully")
-})
-
-mongoose.connection.on("error", (err)=>{
-    console.log("An error occured")
-})
-
 // create a server
-app.listen(PORT, ()=>{
-    console.log("listening to port: http://localhost:"+PORT)
+app.listen(CONFIG.PORT, ()=>{
+    console.log("listening to port: http://localhost:"+CONFIG.PORT)
 })
