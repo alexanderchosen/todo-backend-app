@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const todoModel = require('../models/todo_model');
 const moment = require('moment');
-const todoValidatorMW = require('../validators/todo.validator')
+const {todoValidatorMW} = require('../validators/todo.validator')
 
 const todoRouter =express.Router()
 
@@ -44,7 +44,7 @@ todoRouter.post('/add', todoValidatorMW, async(req, res)=>{
         status: true,
         message: todo
     })
-    
+
 
 })
 
