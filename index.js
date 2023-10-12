@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const todoModel = require('./models/todo_model')
 const todoRouter = require('./routes/todoroute')
+const todoValidatorMW = require('./validators/todo.validator')
 const bodyParser = require('body-parser')
 const CONFIG = require('./config/config')
 const ConnectToDb = require('./db/mongoDb')
@@ -15,7 +16,7 @@ app.use(bodyParser.json())
 // connect to mongoDb
 ConnectToDb()
 
-app.use('/todos', todoRouter)
+app.use('/todos/v1/', todoRouter)
 
 // home route
 app.get('/', async(req, res)=>{
@@ -25,6 +26,19 @@ app.get('/', async(req, res)=>{
         status: true,
         message: todos
     })
+})
+
+// error handler MW
+app.use((error, req, res, next)=>{
+    console.log(error)
+    const errorStatus = error.status || 500
+
+    res.status(errorStatus).json({
+        status: false,
+        message: "An error occured"
+    })
+
+    next()
 })
 
 

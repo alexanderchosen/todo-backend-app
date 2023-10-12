@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const todoModel = require('../models/todo_model');
 const moment = require('moment');
+const todoValidatorMW = require('../validators/todo.validator')
 
 const todoRouter =express.Router()
 
@@ -28,7 +29,7 @@ function shortDescriptions(content){
 
 
 // create a todo route to post todos
-todoRouter.post('/new', async(req, res)=>{
+todoRouter.post('/add', todoValidatorMW, async(req, res)=>{
     const body = req.body
     const content = req.body.content
 
@@ -43,7 +44,7 @@ todoRouter.post('/new', async(req, res)=>{
         status: true,
         message: todo
     })
-    // todo.save()
+    
 
 })
 

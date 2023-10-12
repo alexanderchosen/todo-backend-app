@@ -10,7 +10,8 @@ mongoose.connection.on("connected", ()=>{
 })
 
 mongoose.connection.on("error", (err)=>{
-    console.log("An error occured: " + err)
+    console.log("An error occured")
+    console.error(err)
 })
 }
 
