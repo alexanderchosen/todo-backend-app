@@ -14,7 +14,7 @@ const todoValidator = Joi.object({
                         .trim(),
 
     content: Joi.string()
-                .min(250)
+                .min(10)
                 .required(),
 
     created_at: Joi.date()
