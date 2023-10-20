@@ -1,5 +1,5 @@
 const express = require('express');
-const {todoValidatorMW} = require('../validators/todo.validator')
+const {addTodoValidatorMW, updateTodoValidatorMW} = require('../validators/todo.validator')
 const todoController = require('../controller/todo.contoller')
 
 const todoRouter =express.Router()
@@ -17,7 +17,7 @@ todoRouter.get('/:id', todoController.getTodoById)
 
 
 // update todo by id
-todoRouter.patch('/update/:id', todoController.updateTodoById)
+todoRouter.patch('/update/:id', updateTodoValidatorMW, todoController.updateTodoById)
 
 
 // delete todo by ID

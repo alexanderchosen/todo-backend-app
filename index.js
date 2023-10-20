@@ -16,14 +16,13 @@ app.use(bodyParser.json())
 ConnectToDb()
 
 app.use('/todos/v1/', todoRouter)
+app.use('authors/v1/', authorRoute)
 
 // home route
 app.get('/', async(req, res)=>{
-
-    const todos = await todoModel.find()
     return res.status(200).json({
         status: true,
-        message: todos
+        message: "WELOCME TO MY TODO APP"
     })
 })
 

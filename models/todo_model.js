@@ -15,6 +15,10 @@ const TodoSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    lastUpdatedAt: {
+        type: moment().toDate(),
+        default: Date.now
+    },
     category:{
         type: String,
         enum:['work','personal','spiritual','financial','lifestyle','school','career','business']
