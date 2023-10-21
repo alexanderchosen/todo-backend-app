@@ -22,7 +22,8 @@ const addAuthorValidator = Joi.object({
             .trim()
             .optional(),
     dob: Joi.date()
-         .trim()
+         .greater('1-1-1900')
+         .less('1-1-2022')
          .optional(),
     country: Joi.string()
             .trim()
@@ -45,7 +46,8 @@ const updateAuthorValidator = Joi.object({
             .trim()
             .optional(),
     dob: Joi.date()
-         .trim()
+         .greater('1-1-1900')
+         .less('1-1-2022')
          .optional(),
     country: Joi.string()
             .trim()

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-
+const moment = require('moment')
 const Schema = mongoose.Schema
 const ObjectId = Schema.ObjectId
 
@@ -16,7 +16,7 @@ const TodoSchema = new Schema({
         default: Date.now
     },
     lastUpdatedAt: {
-        type: moment().toDate(),
+        type: Date,
         default: Date.now
     },
     category:{

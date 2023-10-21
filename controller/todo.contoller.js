@@ -64,6 +64,7 @@ async function postNewTodo(req, res){
         shortDescription: shortDescriptions(content),
         content: body.content,
         created_at: moment().toDate(),
+        lastUpdatedAt: moment().toDate(),
         category: body.category
     })
     return res.status(200).json({

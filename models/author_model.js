@@ -14,15 +14,15 @@ const AuthorSchema = new Schema({
         enum: ['male', 'female']
     },
     bio: String,
-    dob: moment().toDate(),
+    dob: Date,
     country: String,
     createdAt: {
-        type: moment().toDate(),
+        type: Date,
         default: Date.now
     },
     lastUpdatedAt: {
-        type: moment().toDate(),
-        default: Date.now,
+        type: Date,
+        default: Date.now
     }
 })
 

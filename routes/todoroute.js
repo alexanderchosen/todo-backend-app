@@ -9,7 +9,7 @@ const todoRouter =express.Router()
 todoRouter.get('/', todoController.getAllTodo)
 
 // create a todo route to post todos
-todoRouter.post('/add', todoValidatorMW, todoController.postNewTodo )
+todoRouter.post('/add', addTodoValidatorMW, todoController.postNewTodo )
 
 
 // get by id params
