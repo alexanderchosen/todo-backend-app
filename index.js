@@ -17,7 +17,7 @@ app.use(bodyParser.json())
 ConnectToDb()
 
 app.use('/todos/v1/', todoRouter)
-app.use('authors/v1/', authorRoute)
+app.use('/authors/v1/', authorRoute)
 
 // home route
 app.get('/', async(req, res)=>{

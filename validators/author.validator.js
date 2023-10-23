@@ -12,7 +12,7 @@ const addAuthorValidator = Joi.object({
                 .required(),
     username: Joi.string()
                 .min(3)
-                .max(10)
+                .max(15)
                 .required(),
     gender: Joi.string()
                 .required(),
@@ -29,7 +29,6 @@ const addAuthorValidator = Joi.object({
             .trim()
             .optional(),
     createdAt: Joi.date()
-                .required()
 
 })
 
@@ -38,7 +37,7 @@ const updateAuthorValidator = Joi.object({
 
     username: Joi.string()
             .min(3)
-            .max(10)
+            .max(15)
             .optional(),
     bio: Joi.string()
             .min(10)
@@ -53,7 +52,6 @@ const updateAuthorValidator = Joi.object({
             .trim()
             .optional(),
     lastUpdatedAt: Joi.date()
-                .required()
 
 })
 
