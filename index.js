@@ -1,14 +1,15 @@
 const express = require('express')
-const mongoose = require('mongoose')
-const todoModel = require('./models/todo_model')
 const todoRouter = require('./routes/todoroute')
 const authorRoute = require('./routes/authorRoute')
 const bodyParser = require('body-parser')
 const CONFIG = require('./config/config')
 const ConnectToDb = require('./db/mongoDb')
+const helmet = require('helmet')
 
 
 const app = express()
+
+app.use(helmet())
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
