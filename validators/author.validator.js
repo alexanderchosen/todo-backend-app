@@ -14,8 +14,13 @@ const addAuthorValidator = Joi.object({
                 .min(3)
                 .max(15)
                 .required(),
+    password: Joi.string()
+            .min(6)
+            .max(15)
+            .trim()
+            .required(),
     gender: Joi.string()
-                .required(),
+            .required(),
     bio: Joi.string()
             .min(10)
             .max(250)
@@ -32,7 +37,7 @@ const addAuthorValidator = Joi.object({
 
 })
 
-
+// add password field here
 const updateAuthorValidator = Joi.object({
 
     username: Joi.string()

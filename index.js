@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const CONFIG = require('./config/config')
 const ConnectToDb = require('./db/mongoDb')
 const helmet = require('helmet')
+const passport = require('passport')
+const session = require ('express-session')
+const connectEnsureLogin = require('connect-ensure-login')
 
 
 const app = express()
@@ -24,7 +27,7 @@ app.use('/authors/v1/', authorRoute)
 app.get('/', async(req, res)=>{
     return res.status(200).json({
         status: true,
-        message: "WELOCME TO MY TODO APP"
+        message: "WELCOME TO MY TODO APP"
     })
 })
 

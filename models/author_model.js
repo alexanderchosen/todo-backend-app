@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const passportLocalMongoose = require('passport-local-mongoose')
 const moment = require('moment')
 
 const Schema = mongoose.Schema
@@ -9,6 +10,7 @@ const AuthorSchema = new Schema({
     firstname:String,
     lastname: String,
     username: String,
+    password: String,
     gender: {
         type:String,
         enum: ['male', 'female']
@@ -25,6 +27,8 @@ const AuthorSchema = new Schema({
         default: Date.now
     }
 })
+
+AuthorSchema.plugin(passportLocalMongoose)
 
 const Author = mongoose.model('Authors', AuthorSchema)
 
