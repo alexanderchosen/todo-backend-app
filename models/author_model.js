@@ -9,8 +9,11 @@ const AuthorSchema = new Schema({
     id: ObjectId,
     firstname:String,
     lastname: String,
-    username: String,
-    password: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
     gender: {
         type:String,
         enum: ['male', 'female']
@@ -28,7 +31,9 @@ const AuthorSchema = new Schema({
     }
 })
 
-AuthorSchema.plugin(passportLocalMongoose)
+AuthorSchema.plugin(passportLocalMongoose, {
+    usernameField: "username"
+}) //automatically handles hashing and salting of password
 
 const Author = mongoose.model('Authors', AuthorSchema)
 

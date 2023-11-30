@@ -12,7 +12,7 @@ async function getAllAuthors(req, res){
 }
 
 
-// get author by ID
+// get author by ID - author's profile
 async function getAuthor(req, res){
     const id = req.params.id
 
